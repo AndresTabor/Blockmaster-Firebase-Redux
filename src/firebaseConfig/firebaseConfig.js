@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCFDZh0yueQ-_bUN3p3hokRgMnUhSq6azQ",
+  apiKey: "AIzaSyB4XqFcf8_B4lpG1aRxXCVR_fE8l9LBjw8",
   authDomain: "spring3-1d297.firebaseapp.com",
   projectId: "spring3-1d297",
   storageBucket: "spring3-1d297.appspot.com",
