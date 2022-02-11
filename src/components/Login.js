@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from 'react-redux';
-import { loginGoogleAsync, loginWithEmailPass } from '../actions/authActions/actionLogin';
+import { loginGoogleAsync, loginWithEmailPass, logoutAsync } from '../actions/authActions/actionLogin';
 import { useForm } from '../hooks/useForm';
 import { OverlayForm } from '../styles/authStyles/FormStyle';
 import { BtnForm } from '../styles/authStyles/FormStyle';
@@ -51,6 +51,9 @@ const Login = () => {
                 </Form.Group>
                 <BtnForm type='button' onClick={() => handleLoginGoogle()}>
                     <FcGoogle/> <span>Sign in with Google</span>
+                </BtnForm>
+                <BtnForm type='button' onClick={() => dispatch(logoutAsync())}>
+                    <span>Logout</span>
                 </BtnForm>
                 </Form>
             </OverlayForm>;

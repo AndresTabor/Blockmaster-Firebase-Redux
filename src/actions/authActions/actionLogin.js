@@ -1,8 +1,31 @@
 import { typesUser } from "../../types/types";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 import { google } from "../../firebaseConfig/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth();
+
+
+export const logoutAsync = () => {
+    return( dispatch) => {
+        const auth = getAuth();
+        signOut(auth)
+        .then(user => {
+            alert( 'Vuelve Pronto' )
+            dispatch(logoutSincrono())
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+}
+export const logoutSincrono = () => {
+    return{
+        type: typesUser.logout,
+        payload: {}
+    }
+ }
 
 export const loginSincrono = ( uid, dsplayName ) => {
     return{
@@ -21,8 +44,9 @@ export const loginGoogleAsync = () => {
         
         signInWithPopup( auth, google )
         .then( ( {user} ) => {
-            console.log( user.displayName );
+            alert( 'welcome' )
             dispatch(loginSincrono( user.uid, user.displayName));
+            window.location = '/';
         })
         .catch( error => {
             console.log( error.code );
@@ -35,8 +59,9 @@ export const loginWithEmailPass = ( email, password ) => {
         
         signInWithEmailAndPassword( auth, email, password )
         .then( ( {user} ) => {
-            console.log( user );
+            alert( 'welcome' )
             dispatch(loginSincrono( user.uid, user.displayName));
+            window.location = '/';
         })
         .catch( error => {
             console.log( error.code );
