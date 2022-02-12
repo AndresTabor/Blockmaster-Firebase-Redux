@@ -21,7 +21,7 @@ const Registro = () => {
 
     const { name, email, password } = registro
 
-   
+    
 
     const handleRegisterGoogle = () => {
         dispatch(loginGoogleAsync())

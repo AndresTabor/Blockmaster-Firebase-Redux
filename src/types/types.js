@@ -3,3 +3,9 @@ export const typesUser = {
     logout: 'logout',
     registro: 'registro'
 }
+
+export const typesMovies = {
+    add: 'añadir',
+    delete: 'delete',
+    list: 'list'
+}

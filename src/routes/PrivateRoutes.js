@@ -7,8 +7,8 @@ import { AuthContext } from '../context/authContext'
 
 
 const PrivateRoutes = ( ) => {
-    const { isLoggin } = useContext(AuthContext)
-    console.log( isLoggin );
+    // const { isLoggin } = useContext(AuthContext)
+    // console.log( isLoggin );
   return (
 
     <> 
