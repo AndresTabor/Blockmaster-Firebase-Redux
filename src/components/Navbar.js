@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Nav } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import { NavList, InputSearch, ButtonSearch, ButtonLocation } from '../styles/homeStyles/NavStyles';
@@ -9,14 +9,17 @@ import { useGetLocation } from '../hooks/useGetLocation';
 
 
 
-const Navbar = () => {
+const Navbar = ( {setCategory} ) => {
 
     const [location, getCoordenadas] = useGetLocation()
-
+    useEffect(() => {
+        console.log('montaje nav');
+    }, [])
+    
     return <header>
             <Nav className="mb-5 text-Light px-5 py-3 nav">
                 <NavList className="navbar-nav me-auto mb-2 mb-lg-0">                    
-                    <Link to="/" className="nav-link">
+                    <Link to="/" className="nav-link" onClick={() =>setCategory('Todas las peliculas')}>
                         <img src="https://res.cloudinary.com/andrestaborda/image/upload/v1638995924/BlockMasterLogo_1_avst1e.svg"
                         width="106px" alt=''/>
                     </Link> 
@@ -25,7 +28,7 @@ const Navbar = () => {
                             name="Todas las peliculas"
                             className="nav-link text-white"
                             to="/"
-                                
+                            onClick={() =>setCategory('Todas las peliculas')}   
                         >Todas</NavLink>
                         
                     </div>
@@ -34,7 +37,7 @@ const Navbar = () => {
                         name="Peliculas más valoradas"
                         className="nav-link text-white"
                         to="/"
-                         
+                        onClick={() =>setCategory('Peliculas más valoradas')}   
                         >Mas Valoradas</NavLink>
                     </div>
                     <div className="nav-item">
@@ -42,6 +45,7 @@ const Navbar = () => {
                         name="Peliculas menos valoradas"
                         className="nav-link text-white"
                         to="/"
+                        onClick={() =>setCategory('Peliculas menos valoradas')} 
                         >Menos Valoradas</NavLink>
                     </div>
                     <Form className='d-flex w-50'>
