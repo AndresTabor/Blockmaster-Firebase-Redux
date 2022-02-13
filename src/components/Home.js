@@ -10,6 +10,7 @@ const Home = () => {
   const [page, setPage] = useState(1) //Paginacion de la Data
   const [searchMovie, setSearchMovie] = useState('') // Estado del buscador
   const [category, setCategory] = useState('Todas las peliculas') //Categoria Inicial de la Data
+  const [screen, setScreen] = useState(document.documentElement.offsetHeight)
   const [estado, setEstado] = useState(false)
   const [showInfo, setInfo] = useState({})
 
@@ -25,20 +26,40 @@ const Home = () => {
 
 
   useEffect(() => {
-    console.log('montaje Home');
+    console.log('montaje Home standar');
     checkSearch()
-    //getData( )
+    
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [searchMovie])
+  useEffect(() => {
+
+    getScroll()
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [page])
+
+  const getScroll = async () => {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=0ca79cfff3d14ef15bb56bac5dad90f8&page=${page}&language=es-LA`)
+    const data = await res.json()
+    setMovies([...movies, ...data.results])
+    
+  }
 
 
-//   useEffect(() => {
+  const scrollToEnd = () => {
+    setPage(page + 1)
+    console.log("traigo");
+  }
 
-//     getScroll()
+  window.onscroll = function () {
+    if ( document.documentElement.scrollTop > screen) {
+      setScreen( (document.documentElement.scrollTop + window.innerHeight)  )
+      scrollToEnd()
+    }
+  }
 
-// // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [page])
+  
 
   return (
     <>
