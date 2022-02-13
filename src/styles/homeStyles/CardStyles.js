@@ -32,7 +32,6 @@ export const CalificacionContainer = styled.div`
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
     border-left:none;
-    z-index: 2;
     & svg {
         align-self:center;
         margin-right:5px;

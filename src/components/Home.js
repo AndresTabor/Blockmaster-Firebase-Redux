@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../helpers/Crud'
+import { ShowDetails } from '../helpers/ShowDetails'
 import { AllMoviesUrl } from '../helpers/Uls'
+import { ListMoviesContainer } from '../styles/homeStyles/MoviesSectionStyle'
 import Cards from './Cards'
 import Carrousel from './Carrousel'
+import DescriptionModal from './DescriptionModal'
 import Navbar from './Navbar'
 
 const Home = () => {
@@ -10,9 +13,9 @@ const Home = () => {
   const [page, setPage] = useState(1) //Paginacion de la Data
   const [searchMovie, setSearchMovie] = useState('') // Estado del buscador
   const [category, setCategory] = useState('Todas las peliculas') //Categoria Inicial de la Data
-  const [screen, setScreen] = useState(document.documentElement.offsetHeight)
+  const [screen, setScreen] = useState(document.documentElement.offsetHeight) //Heigh de la pantalla
+  const [showItem, setItem] = useState({}) // Elemento a mostrar en detalle
   const [estado, setEstado] = useState(false)
-  const [showInfo, setInfo] = useState({})
 
   const checkSearch = () => {
     let endPoint = '';    
@@ -33,7 +36,6 @@ const Home = () => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchMovie])
   useEffect(() => {
-
     getScroll()
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,42 +60,48 @@ const Home = () => {
       scrollToEnd()
     }
   }
-
+  
+  const showModal = ( id ) => {
+    document.getElementById( 'details').style.display="block";
+    ShowDetails( id ).then(resp => setItem( resp ))
+  }
   
 
   return (
     <>
-      <Navbar setCategory={setCategory}/>
+      <Navbar setCategory={setCategory} setSearchMovie={setSearchMovie}/>
       <Carrousel/>
-      {                    
-      // eslint-disable-next-line eqeqeq
-        category == 'Todas las peliculas' ?
-          movies.map(data => (
-            <Cards
-              key={data.id}
-              movie={data}
-              // mostrar={mostrarModal} 
-              //onClick={() =>mostrar(movie.id)}                               
-            />
-                            
-            // eslint-disable-next-line eqeqeq
-            )) : category == 'Peliculas más valoradas' ?
-                movies.filter(vote => vote.vote_average >= 7.0).sort().map(data => (
-                    <Cards
+      <ListMoviesContainer>
+        {                    
+        // eslint-disable-next-line eqeqeq
+          category == 'Todas las peliculas' ?
+            movies.map(data => (
+              <Cards
+                key={data.id}
+                movie={data}              
+                showModal={showModal}                                              
+              />
+                              
+              // eslint-disable-next-line eqeqeq
+              )) : category == 'Peliculas más valoradas' ?
+                  movies.filter(vote => vote.vote_average >= 7.0).sort().map(data => (
+                      <Cards
+                        key={data.id}
+                        movie={data}                       
+                        showModal={showModal} 
+                      />
+              // eslint-disable-next-line eqeqeq
+              )) : category == 'Peliculas menos valoradas' ?
+                  movies.filter(voto => voto.vote_average < 7.0).sort().map(data => (
+                      <Cards
                         key={data.id}
                         movie={data}
-                        // mostrar={mostrarModal}
-                    />
-            // eslint-disable-next-line eqeqeq
-            )) : category == 'Peliculas menos valoradas' ?
-                movies.filter(voto => voto.vote_average < 7.0).sort().map(data => (
-                    <Cards
-                        key={data.id}
-                        movie={data}
-                        // mostrar={mostrarModal}
-                    />
-            )) : console.log('no existe')                            
-      }
+                        showModal={showModal} 
+                      />
+              )) : console.log('no existe')                            
+        }
+      </ListMoviesContainer>
+      <DescriptionModal showItem={showItem}/>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Form, Nav } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import { NavList, InputSearch, ButtonSearch, ButtonLocation } from '../styles/homeStyles/NavStyles';
@@ -9,9 +9,16 @@ import { useGetLocation } from '../hooks/useGetLocation';
 
 
 
-const Navbar = ( {setCategory} ) => {
+
+const Navbar = memo(( {setCategory, setSearchMovie} ) => {
 
     const [location, getCoordenadas] = useGetLocation()
+
+    const handleInputChange = (e) => {
+        setSearchMovie(e.target.value)
+    }
+    
+
     useEffect(() => {
         console.log('montaje nav');
     }, [])
@@ -52,7 +59,7 @@ const Navbar = ( {setCategory} ) => {
                         <InputSearch
                         type="text"
                         placeholder="Buscar tu pelicula favorita"
-                        
+                        onChange={handleInputChange}
                         />
                         <ButtonSearch type="submit">
                             <RiSearchLine/>
@@ -73,6 +80,6 @@ const Navbar = ( {setCategory} ) => {
                 </NavList> 
             </Nav>
     </header>;
-};
+});
 
 export default Navbar;
