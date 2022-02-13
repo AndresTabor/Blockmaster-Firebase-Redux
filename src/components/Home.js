@@ -13,9 +13,8 @@ const Home = () => {
   const [page, setPage] = useState(1) //Paginacion de la Data
   const [searchMovie, setSearchMovie] = useState('') // Estado del buscador
   const [category, setCategory] = useState('Todas las peliculas') //Categoria Inicial de la Data
-  const [screen, setScreen] = useState(document.documentElement.offsetHeight) //Heigh de la pantalla
   const [showItem, setItem] = useState({}) // Elemento a mostrar en detalle
-  const [estado, setEstado] = useState(false)
+  
 
   const checkSearch = () => {
     let endPoint = '';    
@@ -55,8 +54,8 @@ const Home = () => {
   }
 
   window.onscroll = function () {
-    if ( document.documentElement.scrollTop > screen) {
-      setScreen( (document.documentElement.scrollTop + window.innerHeight)  )
+    const elemento= document.querySelector('body')    
+    if ( document.documentElement.scrollTop + window.innerHeight >= elemento.scrollHeight ) {
       scrollToEnd()
     }
   }
