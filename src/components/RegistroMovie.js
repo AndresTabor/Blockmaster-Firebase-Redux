@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addMovieAsync, deleteMovieAsync } from '../actions/moviesActios/actionMovies';
+import { AuthContext } from '../context/authContext';
 import { uploadImage } from '../helpers/uploadImage';
 //import { useForm } from '../hooks/useForm';
 
@@ -12,6 +13,8 @@ const Input = styled.input`
 
 const RegistroMovie = () => {
     const dispatch = useDispatch();
+    const { userKey } = useContext(AuthContext)
+    
 
     const [newMovie, setNewMovie] = useState({
         title: '',
@@ -20,20 +23,13 @@ const RegistroMovie = () => {
         poster_path: ''
     })
 
-    // const [ registro, handleFormChange ] = useForm({
-    //     title:   '',
-    //     overview:    '',
-    //     vote_average: ''
-        
-    // })
+
     const handleFormChange = ( {target} ) => {
         setNewMovie({
             ...newMovie,
             [target.name]: target.value
-        })
-        console.log( newMovie );
+        }) 
     }
-    //const { title, overview, vote_average } = newMovie
 
 
     const handleFileChange = (e) => {
@@ -99,13 +95,14 @@ const RegistroMovie = () => {
                         
                         <div className="d-grid gap-2 mx-auto mt-2">
                             <Input value="Upload" type="submit" className="btn btn-outline-dark" 
-                            onClick={() => dispatch( addMovieAsync( newMovie ))  }/>
+                            onClick={() => dispatch( addMovieAsync( newMovie, userKey ))  }/>
                         </div>
                     </Form>
                 </div>
 
                 <div className="d-grid gap-2 mx-auto mt-2">
-                    <Input value="Delete" type="button" className="btn btn-outline-dark"  onClick={() => dispatch(deleteMovieAsync( "7" ))}/>
+                    <Input value="Delete" type="button" className="btn btn-outline-dark"  
+                    onClick={() => dispatch(deleteMovieAsync( "1", userKey ))}/>
                 </div>
                 <table className="table text-center mt-3">
             

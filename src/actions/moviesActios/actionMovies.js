@@ -15,14 +15,14 @@ export const addMovie = ( movie ) => {
     }
 }
 
-export const addMovieAsync = ( newMovie ) => {
-    const userDataRef = doc(db, "moviesDB", "5lebaDORImP5rF8cUiDyHIzO39H3");
+export const addMovieAsync = ( newMovie, keyUser ) => {
+    const userDataRef = doc(db, "moviesDB", `${keyUser}`);
     //moviesDB
     return( dispatch ) => {
         updateDoc(userDataRef, { 
             upload_movies: arrayUnion( newMovie ), merge: true
         })
-        .then(resp=>{
+        .then(resp =>{
             dispatch( addMovie( newMovie ))
         })
         .catch(e=> {
@@ -31,8 +31,8 @@ export const addMovieAsync = ( newMovie ) => {
     }
 }
 
-export const deleteMovieAsync = ( id ) =>{
-    const userDataRef = doc(db, "moviesDB", "5lebaDORImP5rF8cUiDyHIzO39H3");
+export const deleteMovieAsync = ( id, keyUser ) =>{
+    const userDataRef = doc(db, "moviesDB", `${keyUser}`);
      getDoc(userDataRef)
     .then( resp => {
         const dataMovies = resp._document.data.value.mapValue.fields.upload_movies.arrayValue.values;

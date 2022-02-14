@@ -65,10 +65,12 @@ export const loginWithEmailPass = ( email, password ) => {
         })
         .catch( error => {
             console.log( error.code );
-            if (error.code === "auth/invalid-email") {
+            if (error.code === "user-not-found") {
                 alert("Correo invalido")
             }else if( error.code === "auth/wrong-password"){
                 alert("Contraseña incorrecta")
+            }else if (error.code === "user-not-found"){
+                alert("usuario no enontrdo")
             }
         })
     }

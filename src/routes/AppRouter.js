@@ -7,6 +7,7 @@ import PublicRoutes from './PublicRoutes';
 
 const AppRouter = () => {
   const [isLoggin, setIsLoggin] = useState()
+  const [userKey, setUserKey] = useState('')
  // const [checking, setChecking] = useState(true)
   
 
@@ -15,6 +16,7 @@ const AppRouter = () => {
     onAuthStateChanged(auth, (user) => {
         if(user?.uid){
           console.log(user)
+          setUserKey( user.uid )
           setIsLoggin(true)
         }
         else{
@@ -35,7 +37,7 @@ const AppRouter = () => {
   // }
   
   return <div>
-      <AuthContext.Provider value={{ isLoggin }}>
+      <AuthContext.Provider value={{ isLoggin, userKey }}>
         <BrowserRouter>
         {
           isLoggin === true?
