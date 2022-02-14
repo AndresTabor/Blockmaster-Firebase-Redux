@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
-import { doc, setDoc  } from "@firebase/firestore";
+import { doc, addDoc } from "@firebase/firestore";
 import { typesUser } from "../../types/types"
 import { db } from "../../firebaseConfig/firebaseConfig";
 
@@ -25,13 +25,13 @@ export const registerAsync = ( email, password, name) =>{
                 displayName: name
             }).then( () => {
                 console.log( user );                              
-                setDoc(doc(db, "moviesDB", `${user.uid}`),{
+                addDoc(doc(db, "moviesDB", `${user.uid}`),{
                     name: user.displayName,
                     email:email,
                     password: password,
                     favorites: [],
                     upload_movies: []
-                }).then(resp => console.log(resp))
+                },{ merge: true }).then(resp => console.log(resp))
             })
             //dispatch( regitroSincrono( email, password, name ) )
         })  

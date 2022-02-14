@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, documentId } from "@firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
 import { typesMovies } from "../../types/types";
 
@@ -16,11 +16,13 @@ export const addMovie = ( movie ) => {
 }
 
 export const addMovieAsync = ( newMovie ) => {
+    const userDataRef = doc(db, "moviesDB", "5lebaDORImP5rF8cUiDyHIzO39H3");
     //moviesDB
     return( dispatch ) => {
-        addDoc(collection(db,"moviesDB"),newMovie)
+        updateDoc(userDataRef, { 
+            upload_movies: arrayUnion( newMovie ), merge: true
+        })
         .then(resp=>{
-            console.log( resp )
             dispatch( addMovie( newMovie ))
         })
         .catch(e=> {
@@ -30,8 +32,30 @@ export const addMovieAsync = ( newMovie ) => {
 }
 
 export const deleteMovieAsync = ( id ) =>{
+    const userDataRef = doc(db, "moviesDB", "5lebaDORImP5rF8cUiDyHIzO39H3");
+     getDoc(userDataRef)
+    .then( resp => {
+        const dataMovies = resp._document.data.value.mapValue.fields.upload_movies.arrayValue.values;
+        const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.vote_average.stringValue !== id)
+        //console.log(focusMovies);
+        const updateMovies = []
+        focusMovies.map( element => {
+            const movie = {
+                overview: element.mapValue.fields.overview.stringValue,
+                poster_path:  element.mapValue.fields.poster_path.stringValue,
+                title:  element.mapValue.fields.title.stringValue,
+                vote_average:  element.mapValue.fields.vote_average.stringValue,
+            }
+            updateMovies.push(movie)
+        })
+        updateDoc(userDataRef, { 
+            upload_movies: updateMovies
+        })
+        
+    })
+
     return( dispatch ) => {
-       
+        
        
     }
 }
