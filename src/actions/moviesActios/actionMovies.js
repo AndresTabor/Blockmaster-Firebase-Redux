@@ -1,4 +1,4 @@
-import { addDoc, collection } from "@firebase/firestore";
+import { addDoc, collection, getDocs, documentId } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
 import { typesMovies } from "../../types/types";
 
@@ -26,5 +26,12 @@ export const addMovieAsync = ( newMovie ) => {
         .catch(e=> {
             console.log( e );
         })
+    }
+}
+
+export const deleteMovieAsync = ( id ) =>{
+    return( dispatch ) => {
+       
+       
     }
 }

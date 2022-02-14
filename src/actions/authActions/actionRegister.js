@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
-
+import { doc, setDoc  } from "@firebase/firestore";
 import { typesUser } from "../../types/types"
+import { db } from "../../firebaseConfig/firebaseConfig";
 
 const auth = getAuth();
 
@@ -19,13 +20,19 @@ export const registerAsync = ( email, password, name) =>{
     
     return( dispatch ) => {
         createUserWithEmailAndPassword( auth, email, password )
-        .then( ({user} ) => {
+        .then( ({user} ) => {            
             updateProfile( auth.currentUser,{
                 displayName: name
             }).then( () => {
-                dispatch( regitroSincrono( email, password, user.displayName ) )
+                console.log( user );                              
+                setDoc(doc(db, "moviesDB", `${user.uid}`),{
+                    name: user.displayName,
+                    email:email,
+                    password: password,
+                    favorites: [],
+                    upload_movies: []
+                }).then(resp => console.log(resp))
             })
-            //console.log( user );
             //dispatch( regitroSincrono( email, password, name ) )
         })  
         .catch( error => {

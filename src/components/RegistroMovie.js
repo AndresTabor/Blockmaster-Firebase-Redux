@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { addMovie, addMovieAsync } from '../actions/moviesActios/actionMovies';
+import { addMovie, addMovieAsync, deleteMovieAsync } from '../actions/moviesActios/actionMovies';
 import { uploadImage } from '../helpers/uploadImage';
 //import { useForm } from '../hooks/useForm';
 
@@ -103,7 +103,9 @@ const RegistroMovie = () => {
                     </Form>
                 </div>
 
-                
+                <div className="d-grid gap-2 mx-auto mt-2">
+                    <Input value="Upload" type="button" className="btn btn-outline-dark"  onClick={dispatch(deleteMovieAsync())}/>
+                </div>
                 <table className="table text-center mt-3">
             
                     <thead>
