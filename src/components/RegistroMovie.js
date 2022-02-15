@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react'
+
+import React, { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addMovieAsync, deleteMovieAsync } from '../actions/moviesActios/actionMovies';
 import { AuthContext } from '../context/authContext';
 import { uploadImage } from '../helpers/uploadImage';
-//import { useForm } from '../hooks/useForm';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 const Input = styled.input`
     background-color: orange;
@@ -13,6 +15,7 @@ const Input = styled.input`
 
 const RegistroMovie = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { userKey } = useContext(AuthContext)
     
 
@@ -20,10 +23,20 @@ const RegistroMovie = () => {
         title: '',
         overview: '',
         vote_average: 0,
-        poster_path: ''
+        poster_path: '',
+        id: uuidv4()
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const pruebita = ( newMovie, userKey) => {
+        dispatch(addMovieAsync( newMovie, userKey ))
+    }
+    
+    useEffect(() => {
+        
+    }, [pruebita])
 
-
+    
+    
     const handleFormChange = ( {target} ) => {
         setNewMovie({
             ...newMovie,
@@ -46,7 +59,7 @@ const RegistroMovie = () => {
     const hadleSubmit = ( e ) => {
         e.preventDefault(); 
         console.log( newMovie ); 
-            
+        //navigate('/');
     }
   return (
     <>
@@ -95,14 +108,14 @@ const RegistroMovie = () => {
                         
                         <div className="d-grid gap-2 mx-auto mt-2">
                             <Input value="Upload" type="submit" className="btn btn-outline-dark" 
-                            onClick={() => dispatch( addMovieAsync( newMovie, userKey ))  }/>
+                            onClick={() => pruebita( newMovie, userKey )  }/>
                         </div>
                     </Form>
                 </div>
 
                 <div className="d-grid gap-2 mx-auto mt-2">
                     <Input value="Delete" type="button" className="btn btn-outline-dark"  
-                    onClick={() => dispatch(deleteMovieAsync( "1", userKey ))}/>
+                    onClick={() => dispatch(deleteMovieAsync( "9e01f8af-0e0d-4a5f-acc4-197a480b1650", userKey ))}/>
                 </div>
                 <table className="table text-center mt-3">
             

@@ -36,7 +36,7 @@ export const deleteMovieAsync = ( id, keyUser ) =>{
      getDoc(userDataRef)
     .then( resp => {
         const dataMovies = resp._document.data.value.mapValue.fields.upload_movies.arrayValue.values;
-        const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.vote_average.stringValue !== id)
+        const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.id.stringValue !== id)
         //console.log(focusMovies);
         const updateMovies = []
         focusMovies.map( element => {
