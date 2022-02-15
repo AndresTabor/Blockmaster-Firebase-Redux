@@ -7,7 +7,7 @@ import { addMovieAsync, deleteMovieAsync } from '../actions/moviesActios/actionM
 import { AuthContext } from '../context/authContext';
 import { uploadImage } from '../helpers/uploadImage';
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const Input = styled.input`
     background-color: orange;
@@ -15,7 +15,7 @@ const Input = styled.input`
 
 const RegistroMovie = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     const { userKey } = useContext(AuthContext)
     
 

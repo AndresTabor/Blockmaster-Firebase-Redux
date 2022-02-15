@@ -2,9 +2,10 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from 'react-redux';
-import { loginGoogleAsync, loginWithEmailPass, logoutAsync } from '../actions/authActions/actionLogin';
+import { loginGoogleAsync, loginWithEmailPass } from '../actions/authActions/actionLogin';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useForm } from '../hooks/useForm';
-import { OverlayForm } from '../styles/authStyles/FormStyle';
+import { BtnClose, BtnFormRegister, OverlayForm } from '../styles/authStyles/FormStyle';
 import { BtnForm } from '../styles/authStyles/FormStyle';
 
 const Login = () => {
@@ -27,9 +28,25 @@ const Login = () => {
     const handleLoginEmailPass = () => {
         dispatch( loginWithEmailPass( email, password))
     }
+    const closeForm = () => {
+        document.getElementById('form-login').style.display="none";
+    }
+    const showRegister = () => {  
+        closeForm()      
+        document.getElementById('form-register').style.display="block";
+    }
 
-    return <OverlayForm>
+    return <OverlayForm id='form-login'>
                 <Form onSubmit={handleSubmit}>
+                <BtnClose onClick={() => closeForm()}>
+                    <AiOutlineClose/>
+                </BtnClose>
+                <div className='text-center mt-1 mb-5'> 
+                    <img src="https://res.cloudinary.com/andrestaborda/image/upload/v1638995924/BlockMasterLogo_1_avst1e.svg"
+                    width="150px" 
+                    alt='Logo Block Master'
+                    />                        
+                </div>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Correo electrónico</Form.Label>
                     <Form.Control type="email" 
@@ -40,21 +57,22 @@ const Login = () => {
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                     <Form.Label>Contraseña</Form.Label>
                     <Form.Control type="password" 
-                    placeholder="*****"
+                    placeholder="************"
                     name='password' 
                     onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
-                    <BtnForm type='submit' onClick={() => handleLoginEmailPass()}>
+                    <BtnForm type='submit' className="btn text-black btn-outline-warning w-100" onClick={() => handleLoginEmailPass()}>
                         <span>Iniciar sesión</span>
                     </BtnForm>
                 </Form.Group>
-                <BtnForm type='button' onClick={() => handleLoginGoogle()}>
-                    <FcGoogle/> <span>Sign in with Google</span>
+                <BtnForm type='button' className="btn text-black btn-outline-warning w-100" onClick={() => handleLoginGoogle()}>
+                    <FcGoogle/> <span>Inicia con Google</span>
                 </BtnForm>
-                <BtnForm type='button' onClick={() => dispatch(logoutAsync())}>
-                    <span>Logout</span>
-                </BtnForm>
+                <BtnFormRegister type='button' className="w-100" onClick={() => showRegister()}>
+                    Registrate
+                </BtnFormRegister>
+                
                 </Form>
             </OverlayForm>;
 };
