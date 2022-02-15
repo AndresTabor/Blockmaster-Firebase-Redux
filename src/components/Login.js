@@ -66,7 +66,7 @@ const Login = () => {
                         <span>Iniciar sesión</span>
                     </BtnForm>
                 </Form.Group>
-                <BtnForm type='button' className="btn text-black btn-outline-warning w-100" onClick={() => handleLoginGoogle()}>
+                <BtnForm type='button' className="btn  text-black btn-outline-warning w-100" onClick={() => handleLoginGoogle()}>
                     <FcGoogle/> <span>Inicia con Google</span>
                 </BtnForm>
                 <BtnFormRegister type='button' className="w-100" onClick={() => showRegister()}>

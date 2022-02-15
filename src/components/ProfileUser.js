@@ -4,14 +4,15 @@ import { logoutAsync } from '../actions/authActions/actionLogin'
 import { BtnForm } from '../styles/authStyles/FormStyle'
 
 const ProfileUser = () => {
-  const dispatch = useDispatch
+  
+  const dispatch = useDispatch();
+
   return (
-    <di>
-      <div><h1 className='text-light'>ProfileUser</h1></div>
+    <div>
       <BtnForm type='button' onClick={() => dispatch(logoutAsync())}>
         <span>Logout</span>
       </BtnForm>
-    </di>
+    </div>
   )
 }
 

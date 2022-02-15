@@ -31,19 +31,22 @@ export const BtnClose = styled.button`
     border: none;
     color: whitesmoke;
     &:hover{
-        color: orange;
+        color: #e69c3c;
     }
     
 `
 export const BtnFormRegister = styled.button`
     background: none;
     border: none;
-    color: orange;
+    color: #e69c3c;
     margin-top: 1rem;
+    &:hover{
+        color: #ffc107;
+    }
 `
 export const BtnForm = styled.button`
     border-radius: 5px;
-    background-color: #ffff;
+    background-color: #e69c3c;
     padding: 10px 15px;
     border: none;
     box-shadow: -7px 14px 17px -2px rgba(0,0,0,0.19);

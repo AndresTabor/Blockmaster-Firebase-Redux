@@ -85,10 +85,15 @@ const Navbar = memo(( {setCategory, setSearchMovie} ) => {
                             <ButtonLocation type="button" onClick={() => showFormLogin()}>
                                 <BiUser/>
                             </ButtonLocation>
-                            : 
-                            <link to='/profile'>
-                                <img src='https://ibb.co/RPmNrkp' alt='avatar'/>
-                            </link>
+                            :
+                            <NavLink
+                            name="Profile"
+                            className="nav-link text-white"
+                            to="/profile"                               
+                            >
+                            <img src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar' width='60px'/> 
+                            </NavLink>
+                                                       
                         }
                     </div>                    
                     <Login/>
