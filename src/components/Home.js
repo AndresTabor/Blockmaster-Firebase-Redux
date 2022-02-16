@@ -29,11 +29,10 @@ const Home = () => {
 
   useEffect(() => {
     console.log('montaje Home standar');
-    checkSearch()
-    
-
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    checkSearch()    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchMovie])
+  
   useEffect(() => {
     getScroll()
 

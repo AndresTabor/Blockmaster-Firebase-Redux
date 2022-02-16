@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,11 @@ const Login = () => {
         password: ''
         
     })
+
+    useEffect(() => {
+      console.log('montaje login');
+    }, [])
+    
 
     const { email, password } = registro
 

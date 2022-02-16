@@ -1,19 +1,21 @@
 import { typesUser } from "../../types/types";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 import { google } from "../../firebaseConfig/firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "@firebase/firestore";
+import { db } from "../../firebaseConfig/firebaseConfig";
+
 
 const auth = getAuth();
 
 
 export const logoutAsync = () => {
-    return( dispatch) => {
+    return( dispatch ) => {
         const auth = getAuth();
         signOut(auth)
         .then(user => {
             alert( 'Vuelve Pronto' )
             dispatch(logoutSincrono())
-
+            window.location = '/';
         })
         .catch(error => {
             console.log(error)
@@ -46,7 +48,18 @@ export const loginGoogleAsync = () => {
         .then( ( {user} ) => {
             alert( 'welcome' )
             dispatch(loginSincrono( user.uid, user.displayName));
-            window.location = '/';
+            
+            const userRef = doc(db, 'moviesDB', `${user.uid}`);
+            console.log( userRef );                             
+            setDoc(userRef,{
+                name: user.displayName,
+                email:user.email,                    
+                favorites: [],
+                upload_movies: []
+            },{ merge: true })
+            .then(resp => console.log(resp))
+            .catch(error => console.log(error)) 
+            //window.location = '/';
         })
         .catch( error => {
             console.log( error.code );

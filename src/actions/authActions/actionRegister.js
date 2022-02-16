@@ -29,13 +29,12 @@ export const registerAsync = ( email, password, name) =>{
                 const userRef = doc(db, 'moviesDB', `${user.uid}`)                             
                 setDoc(userRef,{
                     name: user.displayName,
-                    email:email,
-                    password: password,
+                    email:email,                    
                     favorites: [],
                     upload_movies: []
                 },{ merge: true }).then(resp => console.log(resp))
             })
-            //dispatch( regitroSincrono( email, password, name ) )
+            dispatch( regitroSincrono( email, password, name ) )
         })  
         .catch( error => {
             console.log( error.code );

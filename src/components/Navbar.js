@@ -92,8 +92,7 @@ const Navbar = memo(( {setCategory, setSearchMovie} ) => {
                             to="/profile"                               
                             >
                             <img src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar' width='60px'/> 
-                            </NavLink>
-                                                       
+                            </NavLink>                                                       
                         }
                     </div>                    
                     <Login/>
