@@ -6,11 +6,13 @@ import { BtnForm } from '../styles/authStyles/FormStyle'
 import { MdFavorite, MdLocalMovies, MdOutlineArrowBackIosNew } from 'react-icons/md'
 import { RiVideoUploadFill } from 'react-icons/ri'
 import { HiUser } from 'react-icons/hi'
-import { BackArrow, InfoList, NavbarProfile, NavList, SectionProfile } from '../styles/profileStyles/NavProfileStyle'
+import { BackArrow, InfoList, InfoTitle, NavbarProfile, NavList, SectionProfile } from '../styles/profileStyles/NavProfileStyle'
+import UserData from './UserData'
+
 
 
 const ProfileUser = () => { 
-  const [info, setinfo] = useState('profile')
+  const [info, setinfo] = useState('Mi perfil')
   
 
   const dispatch = useDispatch();
@@ -74,7 +76,8 @@ const ProfileUser = () => {
         </NavList>
       </NavbarProfile>
       <InfoList id='info-list'>
-        <h1 id='div-title'> Mis Películas </h1>
+        <InfoTitle id='info-title'> {info} </InfoTitle>
+        <UserData/>
       </InfoList>
       
     </SectionProfile>

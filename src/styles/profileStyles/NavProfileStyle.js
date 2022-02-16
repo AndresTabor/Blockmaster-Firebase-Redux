@@ -70,3 +70,11 @@ export const InfoList = styled.div`
     width: 79%;
     height: 100vh;
 `
+export const InfoTitle = styled.h1`
+    background-color: rgb(26, 26, 26);
+    padding: 30px 100px;
+    color: #e69c3c;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-left: 2px solid rgb(38,35,53);
+`
