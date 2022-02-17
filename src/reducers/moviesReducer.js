@@ -14,13 +14,19 @@ export const moviesReducer = ( state= inicialState, action) => {
         case typesMovies.delete:
             return{
                 movies: state.movies.filter(movie => movie.id !== action.payload)
+            }
+        case typesMovies.updat:
+            return{
+                
             }    
         case typesMovies.list_movies:
             return{
-                movies: [...action.payload]
+                movies: [...action.payload],
+                favorites: [...state.favorites]
             }
         case typesMovies.list_favorites:
             return{
+                movies: [...state.movies],
                 favorites: [...action.payload]
             }
         default:

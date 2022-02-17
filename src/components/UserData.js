@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Form } from 'react-bootstrap'
 import { AuthContext } from '../context/authContext'
 import { useForm } from '../hooks/useForm'
-import { ActionsBtn, AvatarImage, DataContainer, H2, UserDataContainer } from '../styles/profileStyles/UserDataStyle'
+import { ActionsBtn, AvatarImage, BtnAvatar, DataContainer, H2, UserDataContainer } from '../styles/profileStyles/UserDataStyle'
 
 
 const UserData = () => {
@@ -25,9 +25,9 @@ const UserData = () => {
     <DataContainer>
         <H2 className='text-white'>¡Bienvenido, {userData.displayName}!</H2>
         <UserDataContainer>
-            <btnAvatar id='btn-avatar' className='btn'>
+            <BtnAvatar id='btn-avatar' className='btn'>
                 <AvatarImage src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar'/> 
-            </btnAvatar>
+            </BtnAvatar>
             <Form onSubmit={handleSubmit} className='w-75 ms-3'>
                 <Form.Group className="mb-2" controlId="formGroupEmail">
                     <Form.Label>Nombre Completo</Form.Label>

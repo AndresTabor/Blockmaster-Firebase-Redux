@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
 import { doc, updateDoc, arrayUnion, getDoc, onSnapshot } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
 import { typesMovies } from "../../types/types";
@@ -55,7 +57,7 @@ export const deleteMovieAsync = ( id, keyUser ) =>{
             updateDoc(userDataRef, { 
                 upload_movies: updateMovies
             })
-            
+            dispatch( deleteMovie( id )) 
         }).catch( e => console.log(e))          
     }
 }
@@ -86,7 +88,7 @@ export const listMoviesAsync = ( keyUser, typeList ) => {
 }
 
 export const listMovies = ( moviesData, typeList ) => {
-    if ( typeList === 'upload_movies') {
+    if ( typeList === 'upload_movies' ) {
         return{
             type: typesMovies.list_movies,
             payload: moviesData
@@ -97,4 +99,10 @@ export const listMovies = ( moviesData, typeList ) => {
             payload: moviesData
         } 
     }
+}
+
+export const updateMovieAsync = () =>{
+    return async ( dispatch )=>{
+        
+    } 
 }

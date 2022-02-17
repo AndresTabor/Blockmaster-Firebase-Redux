@@ -14,10 +14,11 @@ import UploadMovies from './UploadMovies'
 
 const ProfileUser = () => { 
   const [info, setinfo] = useState('Mi perfil')
-  
-
   const dispatch = useDispatch();
 
+  const changeInfo = ( data ) => {
+    setinfo( data )
+  }
   return (
     <SectionProfile id='profile-section'>
       <NavbarProfile id="navbar-profile">
@@ -37,7 +38,8 @@ const ProfileUser = () => {
               <NavLink
               name="Profile"
               className="nav-link text-white"
-              to="/profile">
+              to="/profile"
+              onClick={() => changeInfo('Mi perfil')}>
                 <HiUser/>
                 <span> Perfil </span>
               </NavLink>
@@ -46,7 +48,8 @@ const ProfileUser = () => {
               <NavLink
               name="Profile"
               className="nav-link text-white"
-              to="/profile">
+              to="/profile"
+              onClick={() => changeInfo( 'Mis favoritas' )}>
                 <MdFavorite/>
                 <span> Favoritas </span>
               </NavLink>
@@ -55,7 +58,8 @@ const ProfileUser = () => {
               <NavLink
               name="Profile"
               className="nav-link text-white"
-              to="/profile">
+              to="/profile"
+              onClick={() => changeInfo( 'Mis películas' )}>
                 <MdLocalMovies/>
                 <span> Mis Películas </span>
               </NavLink>
@@ -78,8 +82,11 @@ const ProfileUser = () => {
       </NavbarProfile>
       <InfoList id='info-list'>
         <InfoTitle id='info-title'> {info} </InfoTitle>
-        {/* <UserData/> */}
-        <UploadMovies/>
+        {
+          info === 'Mi perfil'? <UserData/>
+          : <UploadMovies categoryList={info}/>
+          
+        }
       </InfoList>
       
     </SectionProfile>

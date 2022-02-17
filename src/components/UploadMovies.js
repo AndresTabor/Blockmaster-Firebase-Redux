@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { BiCameraMovie } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
 import { listMoviesAsync } from '../actions/moviesActios/actionMovies';
@@ -8,37 +8,68 @@ import { MessegeContainer } from '../styles/profileStyles/UserDataStyle';
 import CardMoviesProfile from './CardMoviesProfile';
 
 
-const UploadMovies = () => {
-    const [prueba, setPrueba] = useState([])
+const UploadMovies = ( {categoryList} ) => { 
 
-    const { userKey } = useContext( AuthContext )
-    const dispatch = useDispatch();
-    const { movies } = useSelector(store => store.movies)
+  const { userKey } = useContext( AuthContext )
+  const dispatch = useDispatch();
+
+  
+    
    
 
-    useEffect(() => {
-        dispatch(listMoviesAsync( userKey, 'upload_movies' ))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userKey])
+  useEffect(() => {
+    if ( categoryList === 'Mis favoritas' ) {
+      dispatch(listMoviesAsync( userKey, 'favoritas' ))
+    }else if (categoryList === 'Mis películas'){
+      dispatch(listMoviesAsync( userKey, 'upload_movies' ))
+    }
     
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryList])
+    
+  const { movies } = useSelector(store => store.movies)
+  const { favorites } = useSelector(store => store.movies)
 
   return (
     <ListMoviesContainer>
-        {   
-            movies.length === 0? 
-            <MessegeContainer>
-                <h2>Aun no haz agregado películas</h2>
-                <BiCameraMovie/>
-            </MessegeContainer>
-            :movies.map(data => (
-                <CardMoviesProfile
-                  key={data.id}
-                  movie={data}              
-                //   showModal={showModal}                                              
-            />))
-        }
-    </ListMoviesContainer>
+      {  
+        categoryList === 'Mis favoritas' & favorites.length === 0?  
+          <MessegeContainer>
+            <h2>Aun no haz agregado películas</h2>
+            <BiCameraMovie/>
+          </MessegeContainer>
+        :categoryList === 'Mis favoritas'?
+          favorites.map( movie => (
+            <CardMoviesProfile
+            key={movie.id}
+            movie={movie}
+            />              
+          ))
+        :categoryList === 'Mis películas' & movies.length === 0?  
+        <MessegeContainer>
+          <h2>Aun no haz agregado películas</h2>
+          <BiCameraMovie/>
+        </MessegeContainer>
+        : categoryList === 'Mis películas'?
+        movies.map( movie => (
+          <CardMoviesProfile
+          key={movie.id}
+          movie={movie}
+          />              
+        )):console.log('algo salio mal')
+        // currentList.length === 0 ? 
+        // <MessegeContainer>
+        //     <h2>Aun no haz agregado películas</h2>
+        //     <BiCameraMovie/>
+        // </MessegeContainer>
+        // :currentList.map(data => (
+        //     <CardMoviesProfile
+        //       key={data.id}
+        //       movie={data}              
+        //     //   showModal={showModal}                                              
+        // />)) 
+      }
+  </ListMoviesContainer>
   )
 }
 

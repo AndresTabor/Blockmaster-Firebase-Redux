@@ -51,8 +51,8 @@ export const UserDataContainer = styled.div`
     display: flex;
     align-items: center;
 `
-export const btnAvatar = styled.button`
-    width: 35%;
+export const BtnAvatar = styled.button`
+    width: 100%;
     height: 100%;
 `
 export const AvatarImage = styled.img`
