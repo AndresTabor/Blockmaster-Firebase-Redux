@@ -8,6 +8,7 @@ import { RiVideoUploadFill } from 'react-icons/ri'
 import { HiUser } from 'react-icons/hi'
 import { BackArrow, InfoList, InfoTitle, NavbarProfile, NavList, SectionProfile } from '../styles/profileStyles/NavProfileStyle'
 import UserData from './UserData'
+import UploadMovies from './UploadMovies'
 
 
 
@@ -77,7 +78,8 @@ const ProfileUser = () => {
       </NavbarProfile>
       <InfoList id='info-list'>
         <InfoTitle id='info-title'> {info} </InfoTitle>
-        <UserData/>
+        {/* <UserData/> */}
+        <UploadMovies/>
       </InfoList>
       
     </SectionProfile>

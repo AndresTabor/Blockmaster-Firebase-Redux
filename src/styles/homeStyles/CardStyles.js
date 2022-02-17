@@ -5,6 +5,9 @@ export const CardContainer = styled.button`
     height: 330px;
     margin:24px;
     border:none;
+    &:hover div{
+        visibility: visible;
+    }
 `
 export const ImgCard = styled.img`
     width: 100%;

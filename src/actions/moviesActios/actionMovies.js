@@ -1,4 +1,4 @@
-import { doc, updateDoc, arrayUnion, getDoc } from "@firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc, onSnapshot } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
 import { typesMovies } from "../../types/types";
 
@@ -32,7 +32,7 @@ export const addMovieAsync = ( newMovie, keyUser ) => {
 }
 
 export const deleteMovieAsync = ( id, keyUser ) =>{
-    
+    console.log("elimino");
     return( dispatch ) => {
         const userDataRef = doc(db, "moviesDB", `${keyUser}`);
          getDoc(userDataRef)
@@ -57,5 +57,44 @@ export const deleteMovieAsync = ( id, keyUser ) =>{
             })
             
         }).catch( e => console.log(e))          
+    }
+}
+
+export const deleteMovie = ( id ) => {
+    return{
+        type: typesMovies.delete,
+        payload: id
+    }
+}
+
+export const listMoviesAsync = ( keyUser, typeList ) => {
+    console.log( typeList );
+    return( dispatch ) => {
+        const userDataRef = doc(db, "moviesDB", `${keyUser}`);
+        const unsub = onSnapshot(userDataRef, (doc) => {
+            if ( typeList === 'upload_movies') {
+                const movieData = ( doc.data().upload_movies)
+                console.log( movieData );
+                dispatch( listMovies( movieData, typeList ) )
+            }else {
+                const movieData = ( doc.data().favorites)
+                console.log( movieData );
+                dispatch( listMovies( movieData, typeList ) )
+            }
+        })
+    }
+}
+
+export const listMovies = ( moviesData, typeList ) => {
+    if ( typeList === 'upload_movies') {
+        return{
+            type: typesMovies.list_movies,
+            payload: moviesData
+        }        
+    }else{
+        return{
+            type: typesMovies.list_favorites,
+            payload: moviesData
+        } 
     }
 }

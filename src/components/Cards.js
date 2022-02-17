@@ -5,7 +5,6 @@ import { AiFillStar } from 'react-icons/ai'
 
 const Cards = ( {movie, showModal} ) => {
 
-    
   return (
         <CardContainer className='rounded-2' id={movie.id} onClick={() => showModal( movie.id )}>
             <ImgCard src={imageUrl+movie.poster_path} alt={movie.tittle}/>
