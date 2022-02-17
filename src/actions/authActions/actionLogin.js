@@ -1,7 +1,7 @@
 import { typesUser } from "../../types/types";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 import { google } from "../../firebaseConfig/firebaseConfig";
-import { doc, setDoc } from "@firebase/firestore";
+import { doc, setDoc, collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
 
 
@@ -13,7 +13,6 @@ export const logoutAsync = () => {
         const auth = getAuth();
         signOut(auth)
         .then(user => {
-            alert( 'Vuelve Pronto' )
             dispatch(logoutSincrono())
             window.location = '/';
         })
@@ -41,29 +40,31 @@ export const loginSincrono = ( uid, dsplayName ) => {
     }
 }
 
+
 export const loginGoogleAsync = () => {
-    return( dispatch ) => {
+    return async( dispatch ) => {
         
         signInWithPopup( auth, google )
-        .then( ( {user} ) => {
-            alert( 'welcome' )
-            dispatch(loginSincrono( user.uid, user.displayName));
+        .then( async ( {user} ) => {
             
-            const userRef = doc(db, 'moviesDB', `${user.uid}`);
-            console.log( userRef );                             
-            setDoc(userRef,{
-                name: user.displayName,
-                email:user.email,                    
-                favorites: [],
-                upload_movies: []
-            },{ merge: true })
-            .then(resp => console.log(resp))
-            .catch(error => console.log(error)) 
-            //window.location = '/';
+            dispatch(loginSincrono( user.uid, user.displayName)); 
+
+            const q = query(collection(db, "moviesDB"), where("email", "==", user.email));
+            
+            const validacion = await getDocs(q)
+            const response = await validacion.docs
+            if (response.length === 0) {
+                const userRef = doc(db, 'moviesDB', `${user.uid}`);
+                setDoc(userRef,{
+                    name: user.displayName,
+                    email:user.email,                    
+                    favorites: [],
+                    upload_movies: []
+                } )
+            }                          
+            
         })
-        .catch( error => {
-            console.log( error.code );
-        })
+        
     }
 }
 

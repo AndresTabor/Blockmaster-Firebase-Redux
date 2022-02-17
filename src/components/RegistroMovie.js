@@ -115,7 +115,7 @@ const RegistroMovie = () => {
 
                 <div className="d-grid gap-2 mx-auto mt-2">
                     <Input value="Delete" type="button" className="btn btn-outline-dark"  
-                    onClick={() => dispatch(deleteMovieAsync( "9e01f8af-0e0d-4a5f-acc4-197a480b1650", userKey ))}/>
+                    onClick={() => dispatch(deleteMovieAsync( "6987fb2c-fabf-4537-b966-fbee1f6c5618", userKey ))}/>
                 </div>
                 <table className="table text-center mt-3">
             

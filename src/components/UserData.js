@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Form } from 'react-bootstrap'
 import { AuthContext } from '../context/authContext'
 import { useForm } from '../hooks/useForm'
-import { ActionsBtn, AvatarImage, btnAvatar, DataContainer, H2, UserDataContainer } from '../styles/profileStyles/UserDataStyle'
+import { ActionsBtn, AvatarImage, DataContainer, H2, UserDataContainer } from '../styles/profileStyles/UserDataStyle'
 
 
 const UserData = () => {

@@ -32,7 +32,7 @@ export const registerAsync = ( email, password, name) =>{
                     email:email,                    
                     favorites: [],
                     upload_movies: []
-                },{ merge: true }).then(resp => console.log(resp))
+                }).then(resp => console.log(resp))
             })
             dispatch( regitroSincrono( email, password, name ) )
         })  
