@@ -59,7 +59,7 @@ export const ActionsBtnCard = styled.div`
 export const BtnCard = styled.button`
     display: none;
     width: 20%;
-    border: 1px solid rgb(254, 217, 65);
+    border: 1px solid var(--primary-color);
     padding: 5px;
     border-radius: 5px;
     border: 2px solid #e69c3c;

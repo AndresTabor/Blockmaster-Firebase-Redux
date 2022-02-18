@@ -34,10 +34,9 @@ export const addMovieAsync = ( newMovie, keyUser ) => {
 }
 
 export const deleteMovieAsync = ( id, keyUser ) =>{
-    console.log("elimino");
     return( dispatch ) => {
         const userDataRef = doc(db, "moviesDB", `${keyUser}`);
-         getDoc(userDataRef)
+        getDoc(userDataRef)
         .then( resp => {
             const dataMovies = resp._document.data.value.mapValue.fields.upload_movies.arrayValue.values;
             const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.id.stringValue !== id)
@@ -52,13 +51,13 @@ export const deleteMovieAsync = ( id, keyUser ) =>{
                     id:  element.mapValue.fields.id.stringValue,
     
                 }
-                updateMovies.push(movie)
+                updateMovies.push( movie )
             })
             updateDoc(userDataRef, { 
                 upload_movies: updateMovies
             })
             dispatch( deleteMovie( id )) 
-        }).catch( e => console.log(e))          
+        }).catch( e => console.log( e ))          
     }
 }
 
@@ -101,8 +100,25 @@ export const listMovies = ( moviesData, typeList ) => {
     }
 }
 
-export const updateMovieAsync = () =>{
+export const updateMovieAsync = ( id, keyUser, newData ) =>{
     return async ( dispatch )=>{
+        console.log( id, keyUser );
+        const userDataRef = doc(db, "moviesDB", `${keyUser}`);
+        const resp = await getDoc(userDataRef)
+        const data = resp.data().upload_movies;
+        const indiceUpdate = data.findIndex(movie => movie.id === id)
+        data.splice( indiceUpdate, 1, newData );
         
+        updateDoc(userDataRef, { 
+            upload_movies: data
+        })
+        dispatch( updateMovie( data ) )
     } 
+}
+
+export const updateMovie = ( newData ) => {
+    return{
+        type: typesMovies.updat,
+        payload: newData
+    }
 }

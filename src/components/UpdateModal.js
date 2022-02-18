@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { updateMovieAsync } from '../actions/moviesActios/actionMovies';
+import { AuthContext } from '../context/authContext';
 import { uploadImage } from '../helpers/uploadImage';
 import { useForm } from '../hooks/useForm';
 
 const UpdateModal = ( {showModal, movieData, closeModal} ) => {
     const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
+    const { userKey } = useContext(AuthContext);
     
     const [ registro, handleFormChange ] = useForm({
         id: movieData.id,
@@ -24,13 +29,14 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
     }
 
     useEffect(() => {
-      setShow( showModal )
+      setShow( showModal );
       
     }, [showModal])
 
     const handleSubmit = ( e ) => {
-        e.preventDefault()
-        //console.log( registro );
+        e.preventDefault();
+        dispatch( updateMovieAsync( movieData.id, userKey, registro ) );
+        handleClose();
     }
 
     const handleImageChange = (e) => {
@@ -38,9 +44,9 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
         uploadImage( file )
         .then(response => {
             registro.poster_path = response
-           console.log(response);
+            console.log(response);
         }).catch(error => {
-            console.log( error.message )
+            console.log( error.message );
         }) 
     }
     const handleVideoChange = (e) => {
@@ -50,7 +56,7 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
             registro.video_path = response
            console.log(response);
         }).catch(error => {
-            console.log( error.message )
+            console.log( error.message );
         }) 
     }
     
@@ -116,7 +122,7 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
                     <Button variant="secondary" type='button' onClick={handleClose}>
                         Cancelar
                     </Button>
-                    <Button variant="primary" className='ms-4' type='submit'>
+                    <Button variant="warning" className='ms-4' type='submit'>
                         Guardar cambios
                     </Button>
                 </Form.Group>
