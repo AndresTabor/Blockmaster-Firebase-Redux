@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { uploadImage } from '../helpers/uploadImage';
+import { useForm } from '../hooks/useForm';
 
 const UpdateModal = ( {showModal, movieData, closeModal} ) => {
     const [show, setShow] = useState(false);
+    
+    const [ registro, handleFormChange ] = useForm({
+        id: movieData.id,
+        title: movieData.title,
+        overview: movieData.overview,
+        genres: movieData.genres,
+        poster_path: movieData.poster_path,
+        vote_average: movieData.vote_average,
+        video_path: ''
+    })
+
+    const { title, overview } = registro
 
     const handleClose = () => {
         setShow(false);
@@ -15,11 +28,16 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
       
     }, [showModal])
 
+    const handleSubmit = ( e ) => {
+        e.preventDefault()
+        //console.log( registro );
+    }
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         uploadImage( file )
         .then(response => {
-            //setNewMovie( {...newMovie, poster_path: response} )
+            registro.poster_path = response
            console.log(response);
         }).catch(error => {
             console.log( error.message )
@@ -29,7 +47,7 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
         const file = e.target.files[0];
         uploadImage( file )
         .then(response => {
-            //setNewMovie( {...newMovie, poster_path: response} )
+            registro.video_path = response
            console.log(response);
         }).catch(error => {
             console.log( error.message )
@@ -44,19 +62,29 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
             <Modal.Title>Editar Película</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasictTitle">
                     <Form.Label>Titulo</Form.Label>
-                    <Form.Control type="text" placeholder={movieData.title} value={movieData.title}/>                
+                    <Form.Control type="text"
+                    name='title' 
+                    placeholder={title} 
+                    defaultValue={movieData.title}
+                    onChange={handleFormChange}
+                   />                
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicOverview">
                     <Form.Label>Descripción</Form.Label>
-                    <Form.Control type="text" placeholder={movieData.overview} value={movieData.overview}/>
+                    <Form.Control type="text"
+                    name='overview' 
+                    placeholder={overview} 
+                    defaultValue={movieData.overview}
+                    onChange={handleFormChange}/>
                 </Form.Group>
                 
                 <Form.Group className="mb-3" controlId="formGroupCategory">
-                    <Form.Select aria-label="Default select">
+                    <Form.Label>Categoría</Form.Label>
+                    <Form.Select aria-label="Default select" name='genres' onChange={handleFormChange}>
                     <option>{movieData.genres}</option>
                     <option value="Acción">Acción</option>
                     <option value="Comedia">Comedia</option>
@@ -69,27 +97,31 @@ const UpdateModal = ( {showModal, movieData, closeModal} ) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGroupPosterPath">
+                    <Form.Label>Imagen de portada</Form.Label>
                     <input id="inputImage" 
                     type="file" className="form-control"                             
                     name="poster_path"  
                     onChange={handleImageChange}/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupVidePath">
+
+                <Form.Group className="mb-5" controlId="formGroupVidePath">
+                    <Form.Label>Video trailer</Form.Label>
                     <input id="inputVideo" 
                     type="file" className="form-control"                             
                     name="video_path"  
                     onChange={handleVideoChange}/>
                 </Form.Group>
+
+                <Form.Group className="mb-3 text-end" controlId="formGroupButtons">
+                    <Button variant="secondary" type='button' onClick={handleClose}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" className='ms-4' type='submit'>
+                        Guardar cambios
+                    </Button>
+                </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-                Close
-            </Button>
-            <Button variant="primary">
-                Save Changes
-            </Button>
-            </Modal.Footer>
         </Modal>
     </>
   )

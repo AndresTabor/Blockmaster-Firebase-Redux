@@ -25,27 +25,11 @@ export const MessegeContainer = styled.div`
     & svg {
         color: #ffff;
         font-size: 7rem;
-        color: #e69c3c;
+        color: var(--primary-color);
         
     }
 `
-export const BtnDeleteCard = styled.div`
-    width: 20%;
-    visibility: hidden;
-    position: relative;
-    top: -50px;
-    left: 90px;
-    border: none;
-    padding: 5px;
-    border-radius: 5px;
-    border: 2px solid #e69c3c;
-    background-color: rgba(0,0,0,0.7);
-    & svg {
-        color: #e69c3c;
-        margin: 0 auto;
-        font-size: 1.5rem;
-    }
-`
+
 export const UserDataContainer = styled.div`
     width: 40%;
     display: flex;

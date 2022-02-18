@@ -42,7 +42,7 @@ export const NavList = styled.ul`
         margin:20px 0;
         transition: all 0.02s ease-out;
         &:hover{
-            background-color: #e69c3c;
+            background-color: var(--primary-color);
             border-radius: 20px;
             box-shadow: -7px 14px 17px -2px rgba(0,0,0,0.19);
             -webkit-box-shadow: -7px 14px 17px -2px rgba(0,0,0,0.19);
@@ -52,7 +52,7 @@ export const NavList = styled.ul`
     }
 
     & svg {
-        color: #e69c3c;
+        color: var(--primary-color);
         font-size: 1.8rem;
         margin-right: 20px;
     }
@@ -73,7 +73,7 @@ export const InfoList = styled.div`
 export const InfoTitle = styled.h1`
     background-color: rgb(26, 26, 26);
     padding: 30px 100px;
-    color: #e69c3c;
+    color: var(--primary-color);
     font-size: 2.5rem;
     font-weight: bold;
     border-left: 2px solid rgb(38,35,53);
