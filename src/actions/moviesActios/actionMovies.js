@@ -39,8 +39,7 @@ export const deleteMovieAsync = ( id, keyUser ) =>{
         getDoc(userDataRef)
         .then( resp => {
             const dataMovies = resp._document.data.value.mapValue.fields.upload_movies.arrayValue.values;
-            const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.id.stringValue !== id)
-            //console.log(focusMovies);
+            const focusMovies = dataMovies.filter( movie => movie.mapValue.fields.id.stringValue !== id);
             const updateMovies = []
             focusMovies.map( element => {
                 const movie = {
@@ -69,17 +68,14 @@ export const deleteMovie = ( id ) => {
 }
 
 export const listMoviesAsync = ( keyUser, typeList ) => {
-    console.log( typeList );
     return( dispatch ) => {
         const userDataRef = doc(db, "moviesDB", `${keyUser}`);
         const unsub = onSnapshot(userDataRef, (doc) => {
             if ( typeList === 'upload_movies') {
-                const movieData = ( doc.data().upload_movies)
-                console.log( movieData );
+                const movieData = ( doc.data().upload_movies)                
                 dispatch( listMovies( movieData, typeList ) )
             }else {
-                const movieData = ( doc.data().favorites)
-                console.log( movieData );
+                const movieData = ( doc.data().favorites)                
                 dispatch( listMovies( movieData, typeList ) )
             }
         })
@@ -102,7 +98,6 @@ export const listMovies = ( moviesData, typeList ) => {
 
 export const updateMovieAsync = ( id, keyUser, newData ) =>{
     return async ( dispatch )=>{
-        console.log( id, keyUser );
         const userDataRef = doc(db, "moviesDB", `${keyUser}`);
         const resp = await getDoc(userDataRef)
         const data = resp.data().upload_movies;

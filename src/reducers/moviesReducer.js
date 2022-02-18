@@ -17,7 +17,8 @@ export const moviesReducer = ( state= inicialState, action) => {
             }
         case typesMovies.updat:
             return{
-                movies: [...action.payload]
+                movies: [...action.payload],
+                favorites: [...state.favorites]
             }    
         case typesMovies.list_movies:
             return{
