@@ -56,18 +56,7 @@ const UploadMovies = ( {categoryList} ) => {
           key={movie.id}
           movie={movie}
           />              
-        )):console.log('algo salio mal')
-        // currentList.length === 0 ? 
-        // <MessegeContainer>
-        //     <h2>Aun no haz agregado películas</h2>
-        //     <BiCameraMovie/>
-        // </MessegeContainer>
-        // :currentList.map(data => (
-        //     <CardMoviesProfile
-        //       key={data.id}
-        //       movie={data}              
-        //     //   showModal={showModal}                                              
-        // />)) 
+        )):console.log('algo salio mal')        
       }
   </ListMoviesContainer>
   )

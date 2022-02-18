@@ -27,13 +27,13 @@ const RegistroMovie = () => {
         id: uuidv4()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const pruebita = ( newMovie, userKey) => {
+    const registerMovie = ( newMovie, userKey) => {
         dispatch(addMovieAsync( newMovie, userKey ))
     }
     
     useEffect(() => {
         
-    }, [pruebita])
+    }, [registerMovie])
 
     
     
@@ -108,7 +108,7 @@ const RegistroMovie = () => {
                         
                         <div className="d-grid gap-2 mx-auto mt-2">
                             <Input value="Upload" type="submit" className="btn btn-outline-dark" 
-                            onClick={() => pruebita( newMovie, userKey )  }/>
+                            onClick={() => registerMovie( newMovie, userKey )  }/>
                         </div>
                     </Form>
                 </div>
@@ -116,22 +116,7 @@ const RegistroMovie = () => {
                 <div className="d-grid gap-2 mx-auto mt-2">
                     <Input value="Delete" type="button" className="btn btn-outline-dark"  
                     onClick={() => dispatch(deleteMovieAsync( "6987fb2c-fabf-4537-b966-fbee1f6c5618", userKey ))}/>
-                </div>
-                <table className="table text-center mt-3">
-            
-                    <thead>
-                        <tr className='text-light'>
-                            <th scope="col">Title</th>
-                            <th scope="col">Overview</th>
-                            <th scope="col">Vote_average</th>
-                            <th scope="col">Poster_path</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+                </div>                
 
             </div>
         </div>
