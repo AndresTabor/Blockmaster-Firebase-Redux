@@ -17,25 +17,25 @@ const CardMoviesProfile = ( {movie} ) => {
   const handleShow = () => setShow(true);
   
   return (
-        <CardContainer className='rounded-2' id={movie.id}>
-            <ImgCard src={movie.poster_path} alt={movie.tittle}/>
-            <CalificacionContainer>
-                <AiFillStar/>            
-                <span>{movie.vote_average}</span>
-            </CalificacionContainer>
-            <ActionsBtnCard>
-              <BtnCard onClick={() => dispatch( deleteMovieAsync( movie.id, userKey)) }>
-                <MdDeleteForever/>
-              </BtnCard>
-              <BtnCard variant="primary" onClick={handleShow}>
-                <MdSystemUpdateAlt/>
-              </BtnCard>
-              <BtnCard variant="primary">
-                <BiShowAlt/>
-              </BtnCard>
-            </ActionsBtnCard>
-            <UpdateModal showModal={show} movieData={movie} closeModal={setShow}/>
-        </CardContainer>
+    <CardContainer className='rounded-2' id={movie.id} key={movie.id}>
+        <ImgCard src={movie.poster_path} alt={movie.tittle}/>
+        <CalificacionContainer>
+            <AiFillStar/>            
+            <span>{movie.vote_average}</span>
+        </CalificacionContainer>
+        <ActionsBtnCard>
+          <BtnCard onClick={() => dispatch( deleteMovieAsync( movie.id, userKey)) }>
+            <MdDeleteForever/>
+          </BtnCard>
+          <BtnCard variant="primary" onClick={handleShow}>
+            <MdSystemUpdateAlt/>
+          </BtnCard>
+          <BtnCard variant="primary">
+            <BiShowAlt/>
+          </BtnCard>
+        </ActionsBtnCard>
+        <UpdateModal showModal={show} movieData={movie} closeModal={setShow}/>
+    </CardContainer>
   )
 }
 

@@ -14,5 +14,11 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif !important;
 }
-
+.modal-content{
+  background: linear-gradient(185deg, rgba(49,59,93,1) 0%, rgba(24,35,71,1) 48%, rgba(8,15,40,1) 100%);
+  color: white;
+  border-radius: 10px!important;
+  border: none!important;
+  background-clip: unset!important;
+}
 

@@ -25,8 +25,8 @@ export const NavbarProfile = styled.nav`
 export const BackArrow = styled.span`
     font-size: 24px;
     position: relative;
-    top: -97px;
-    right: 154px;
+    top: -90px;
+    right: 104px;
     &:hover{
         color: #e69c3c;
     }
@@ -77,4 +77,10 @@ export const InfoTitle = styled.h1`
     font-size: 2.5rem;
     font-weight: bold;
     border-left: 2px solid rgb(38,35,53);
+`
+
+export const BtnShowUpload = styled.button`
+    border: none;
+    background: none;
+    padding: 0.5rem 1rem;
 `

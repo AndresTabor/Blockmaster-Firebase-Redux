@@ -6,15 +6,19 @@ import { BtnForm } from '../styles/authStyles/FormStyle'
 import { MdFavorite, MdLocalMovies, MdOutlineArrowBackIosNew } from 'react-icons/md'
 import { RiVideoUploadFill } from 'react-icons/ri'
 import { HiUser } from 'react-icons/hi'
-import { BackArrow, InfoList, InfoTitle, NavbarProfile, NavList, SectionProfile } from '../styles/profileStyles/NavProfileStyle'
+import { BackArrow, BtnShowUpload, InfoList, InfoTitle, NavbarProfile, NavList, SectionProfile } from '../styles/profileStyles/NavProfileStyle'
 import UserData from './UserData'
 import UploadMovies from './UploadMovies'
+import UploadModal from './UploadModal'
 
 
 
 const ProfileUser = () => { 
   const [info, setinfo] = useState('Mi perfil')
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+
+  const handleShow = () => setShowModal(true);
 
   const changeInfo = ( data ) => {
     setinfo( data )
@@ -65,13 +69,17 @@ const ProfileUser = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
+              <BtnShowUpload onClick={() => handleShow()}>
+                <RiVideoUploadFill/>
+                <span> Subir Película </span>
+              </BtnShowUpload>
+              {/* <NavLink
               name="Profile"
               className="nav-link text-white"
               to="/registerMovie">
                 <RiVideoUploadFill/>
                 <span> Subir Película </span>
-              </NavLink>
+              </NavLink> */}
             </li> 
             <BtnForm type='button'
             className='mt-5 w-100 btn-outline-warning' 
@@ -84,11 +92,10 @@ const ProfileUser = () => {
         <InfoTitle id='info-title'> {info} </InfoTitle>
         {
           info === 'Mi perfil'? <UserData/>
-          : <UploadMovies categoryList={info}/>
-          
+          : <UploadMovies categoryList={info}/>          
         }
       </InfoList>
-      
+      <UploadModal setShowModal={setShowModal} showModal={showModal}/>
     </SectionProfile>
   )
 }

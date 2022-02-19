@@ -22,8 +22,9 @@ const RegistroMovie = () => {
     const [newMovie, setNewMovie] = useState({
         title: '',
         overview: '',
-        vote_average: 0,
+        vote_average: '0',
         poster_path: '',
+        video_path: '',
         id: uuidv4()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
