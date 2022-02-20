@@ -1,5 +1,5 @@
 import { typesUser } from "../../types/types";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import { google } from "../../firebaseConfig/firebaseConfig";
 import { doc, setDoc, collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
@@ -11,13 +11,13 @@ const auth = getAuth();
 export const logoutAsync = () => {
     return( dispatch ) => {
         const auth = getAuth();
-        signOut(auth)
+        signOut( auth )
         .then(user => {
-            dispatch(logoutSincrono())
+            dispatch( logoutSincrono() )
             window.location = '/';
         })
         .catch(error => {
-            console.log(error)
+            console.log( error )
         })
     }
 }
@@ -28,13 +28,14 @@ export const logoutSincrono = () => {
     }
  }
 
-export const loginSincrono = ( uid, dsplayName ) => {
+export const loginSincrono = ( uid, dsplayName, photo ) => {
     return{
 
         type: typesUser.login,
         payload: {
             id:   uid,
-            name: dsplayName
+            name: dsplayName,
+            photo_url:photo
         }
         
     }
@@ -46,21 +47,24 @@ export const loginGoogleAsync = () => {
         
         signInWithPopup( auth, google )
         .then( async ( {user} ) => {
-            
-            dispatch(loginSincrono( user.uid, user.displayName)); 
-
-            const q = query(collection(db, "moviesDB"), where("email", "==", user.email));
-            
+            dispatch( loginSincrono( user.uid, user.displayName, user.photoURL ) );
+            const q = query(collection(db, "moviesDB"), where("email", "==", user.email));     
             const validacion = await getDocs(q)
             const response = await validacion.docs
             if (response.length === 0) {
-                const userRef = doc(db, 'moviesDB', `${user.uid}`);
-                setDoc(userRef,{
-                    name: user.displayName,
-                    email:user.email,                    
-                    favorites: [],
-                    upload_movies: []
-                } )
+                updateProfile( auth.currentUser,{                
+                    photoURL:'https://i.ibb.co/sKZXF1S/avatar3.png'
+                }).then(rep => {                    
+                    dispatch( loginSincrono( user.uid, user.displayName, user.photoURL ) );
+                    const userRef = doc(db, 'moviesDB', `${user.uid}`);
+                    setDoc(userRef,{
+                        name: user.displayName,
+                        email:user.email,
+                        photo_url: 'https://i.ibb.co/sKZXF1S/avatar3.png',                    
+                        favorites: [],
+                        upload_movies: []
+                    } )
+                })
             }                          
             
         })

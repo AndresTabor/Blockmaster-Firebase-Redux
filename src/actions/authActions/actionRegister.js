@@ -23,13 +23,15 @@ export const registerAsync = ( email, password, name) =>{
         .then( ({user} ) => { 
             console.log( user );           
             updateProfile( auth.currentUser,{
-                displayName: name
+                displayName: name,
+                photoURL:'https://i.ibb.co/sKZXF1S/avatar3.png'
             }).then( resp => {
                 console.log( user ); 
                 const userRef = doc(db, 'moviesDB', `${user.uid}`)                             
                 setDoc(userRef,{
                     name: user.displayName,
-                    email:email,                    
+                    email:email,
+                    photo_url:'https://i.ibb.co/sKZXF1S/avatar3.png',                    
                     favorites: [],
                     upload_movies: []
                 }).then(resp => console.log(resp))

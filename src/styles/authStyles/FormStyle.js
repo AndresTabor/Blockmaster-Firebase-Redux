@@ -12,7 +12,8 @@ export const OverlayForm = styled.div`
     height: 100vh;
     align-items: center;
     & form{
-        width: 20%;
+        max-width: 20%;
+        min-width: 350px;
         max-height: 550px;
         border-radius: 10px;
         padding: 15px 24px;

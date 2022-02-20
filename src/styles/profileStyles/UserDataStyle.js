@@ -2,9 +2,15 @@ import styled from "styled-components";
 
 export const DataContainer = styled.div`
     display: flex;
+    width: 80%;
     flex-direction: column;
-    margin-top: 200px;
+    margin: 200px auto;
     align-items: center;
+    & h2{
+      width: 60%;
+      text-align: center;  
+    }
+
 `
 export const H2 = styled.h2`
     font-size: 2.8rem;
@@ -21,6 +27,7 @@ export const MessegeContainer = styled.div`
     & h2 {
         color: #ffff;
         margin-bottom: 80px;
+        
     }
     & svg {
         color: #ffff;
@@ -31,21 +38,25 @@ export const MessegeContainer = styled.div`
 `
 
 export const UserDataContainer = styled.div`
-    width: 40%;
+    width: 60%;
     display: flex;
     align-items: center;
+    & input{
+        background: none!important;
+        border: none;
+        border-bottom: 1.5px solid rgb(68,57,100);
+    }
 `
 export const BtnAvatar = styled.button`
-    width: 100%;
     height: 100%;
 `
 export const AvatarImage = styled.img`
-    width: 80%;
+    width: 70%;
     &:hover{cursor: pointer;}
 `
 
 export const ActionsBtn = styled.div`
-    width: 40%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     margin-top: 28px;

@@ -35,7 +35,7 @@ const ProfileUser = () => {
           </BackArrow>
         </NavLink>
         <div className='text-center'>
-          <img src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar' width='50%'/> 
+          <img src='https://res.cloudinary.com/andrestaborda/image/upload/v1638995924/BlockMasterLogo_1_avst1e.svg' alt='avatar' width='50%'/> 
         </div>
         <NavList>
             <li>

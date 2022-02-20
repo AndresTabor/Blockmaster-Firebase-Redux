@@ -16,11 +16,7 @@ export const NavbarProfile = styled.nav`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    & img {
-        background-color: #ffff;
-        border-radius: 50%;
-    }
+    align-items: center;    
 `
 export const BackArrow = styled.span`
     font-size: 24px;

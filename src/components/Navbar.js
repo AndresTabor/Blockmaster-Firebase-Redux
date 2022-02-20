@@ -9,12 +9,13 @@ import { useGetLocation } from '../hooks/useGetLocation';
 import { AuthContext } from '../context/authContext';
 import Login from './Login';
 import Registro from './Registro';
+import { useSelector } from 'react-redux';
 
 
 
 
 const Navbar = memo(( {setCategory, setSearchMovie} ) => {
-
+    const { photo_url } = useSelector(store => store.login) 
     const [location, getCoordenadas] = useGetLocation()
     const { isLoggin } = useContext(AuthContext)
 
@@ -25,7 +26,7 @@ const Navbar = memo(( {setCategory, setSearchMovie} ) => {
 
     useEffect(() => {
         console.log('montaje nav');
-    }, [])
+    }, [photo_url])
     
     const showFormLogin = () => {
         document.getElementById('form-login').style.display="block";
@@ -91,7 +92,7 @@ const Navbar = memo(( {setCategory, setSearchMovie} ) => {
                             className="nav-link text-white"
                             to="/profile"                               
                             >
-                            <img src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar' width='60px'/> 
+                            <img src={photo_url} alt='avatar' width='60px'/> 
                             </NavLink>                                                       
                         }
                     </div>                    

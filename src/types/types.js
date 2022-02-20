@@ -1,7 +1,8 @@
 export const typesUser = {
     login: 'login',
     logout: 'logout',
-    registro: 'registro'
+    registro: 'registro',
+    delete: 'delete'
 }
 
 export const typesMovies = {

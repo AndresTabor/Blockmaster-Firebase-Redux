@@ -13,10 +13,6 @@ const UploadMovies = ( {categoryList} ) => {
   const { userKey } = useContext( AuthContext )
   const dispatch = useDispatch();
 
-  
-    
-   
-
   useEffect(() => {
     if ( categoryList === 'Mis favoritas' ) {
       dispatch(listMoviesAsync( userKey, 'favoritas' ))
