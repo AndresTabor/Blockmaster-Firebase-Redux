@@ -1,5 +1,5 @@
 import { getAuth, updateProfile, deleteUser, reauthenticateWithCredential } from "firebase/auth";
-import { doc, updateDoc } from "@firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "@firebase/firestore";
 //import { typesUser } from "../../types/types"
 import { db } from "../../firebaseConfig/firebaseConfig";
 
@@ -23,20 +23,13 @@ export const updateUserAsync = ( newData, keyUser ) => {
 
 
 export const deleUserAsync = () => {
-    return() => {
+    return () => {
         const user = auth.currentUser;
         
-        // const credential = user.stsTokenManager.refreshToken;
-        // reauthenticateWithCredential(user, credential)
-        // .then( resp => {
-        //     console.log( resp );
-        // })
-        // .catch( e => {
-        //     console.log( e );
-        // });
         deleteUser(user)
         .then( () => {
-            //window.location
+            deleteDoc(doc(db, "moviesDB", user.uid))
+            .then(resp => console.log( resp ))            
         })
         .catch( e => {
             console.log( e );
