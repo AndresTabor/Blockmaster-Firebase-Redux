@@ -8,7 +8,7 @@ export const NavbarProfile = styled.nav`
     padding: 20px;    
     position: fixed;
     border-radius: 20px;    
-    min-width: 290px;
+    min-width: 265px;
     top: 10%;
     left: 0;
     width: 20%;

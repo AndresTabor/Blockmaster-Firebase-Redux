@@ -1,50 +1,67 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { loginSincrono } from '../actions/authActions/actionLogin'
 import { deleUserAsync, updateUserAsync } from '../actions/profileActions/actionsProfile'
 import { AuthContext } from '../context/authContext'
 import { useForm } from '../hooks/useForm'
 import { ActionsBtn, AvatarImage, BtnAvatar, DataContainer, H2, UserDataContainer } from '../styles/profileStyles/UserDataStyle'
+import AvatarModal from './AvatarModal'
 
 
 const UserData = () => {
     const dispatch = useDispatch();
     const { userData, userKey } = useContext( AuthContext )
     const [count, setCount] = useState( 1 )
+    const [avatar, setAvatar] = useState( userData.photoURL )
+    const [changeAvatar, setChangeAvatar] = useState( false )
+
     useEffect(() => {
       console.log('montaje');
+      document.getElementById( 'btn-avatar' ).disabled = true;
     }, [])
     
-
     const handleSubmit = ( e ) => {
         e.preventDefault();
     }
 
     const [ registro, handleFormChange ] = useForm({
-        name:   userData.displayName,
-        email:    userData.email,
-        password: ''
+        name: userData.displayName,
+        email: userData.email,
+        password: '',
+        photo_url:avatar
         
     })
 
     const { name, email, password } = registro
-    
 
-    const editData = () => {        
+    const showAvatars = () => {
+        setChangeAvatar( true );
+    }
+
+    const editData = () => {                
         const editName = document.getElementById( 'input-name' );
         const editEmail = document.getElementById( 'input-email' );
         const btnEdit = document.getElementById('btn-edit');
+        const editPass = document.getElementById( 'input-pass' );
+        const btnAvatar = document.getElementById( 'btn-avatar' );
+        btnAvatar.disabled= false;
         editName.disabled = false;      
         btnEdit.innerHTML = 'Confirmar'
         if ( userData.providerData[0].providerId !== 'google.com' ) {
-            const editPass = document.getElementById( 'input-pass' );
             editPass.disabled = false;
             editEmail.disabled = false;
         } 
         if ( count % 2 === 0 ) {
-            console.log("actualizo");
+            registro.photo_url= avatar;
             dispatch( updateUserAsync( registro, userKey ) );
+            dispatch( loginSincrono( userKey, name, avatar ) ); 
             setCount( 1 );
+            setChangeAvatar( false );
+            editName.disabled = true;
+            editPass.disabled = true;
+            editEmail.disabled = true; 
+            btnAvatar.disabled= true;
             btnEdit.innerHTML = 'Editar';
         }else{
             setCount( count + 1 );
@@ -53,10 +70,13 @@ const UserData = () => {
     }  
     
     const cancelEdit = () => {
+        setChangeAvatar( false );
+        setAvatar( userData.photoURL )
         if (count !== 1) {
             document.getElementById( 'input-name' ).disabled = true;
             document.getElementById( 'input-email' ).disabled = true;
             document.getElementById( 'input-pass' ).disabled = true;
+            document.getElementById( 'btn-avatar' ).disabled = true;
             document.getElementById('btn-edit').innerHTML = 'Editar'; 
             setCount( 1 ); 
             registro.name = userData.displayName;
@@ -69,8 +89,8 @@ const UserData = () => {
     <DataContainer>
         <H2 className='text-white'>¡Bienvenido, {userData.displayName}!</H2>
         <UserDataContainer>
-            <BtnAvatar id='btn-avatar' className='btn'>
-                <AvatarImage src='https://i.ibb.co/sKZXF1S/avatar3.png' alt='avatar'/> 
+            <BtnAvatar id='btn-avatar' className='btn' onClick={() => showAvatars()}>
+                <AvatarImage src={avatar} alt='avatar'/> 
             </BtnAvatar>
             <Form onSubmit={handleSubmit} className='w-100 ms-3'>
                 <Form.Group className="mb-2">
@@ -114,6 +134,11 @@ const UserData = () => {
             <button type='button' id='btn-cancel' onClick={() => cancelEdit()}>Cancelar</button>
             <button type='button' id='btn-delete' onClick={() => dispatch( deleUserAsync() )}>Eliminar perfil</button>
         </ActionsBtn>
+        {
+            changeAvatar === true ?
+            <AvatarModal showAvatar={changeAvatar} setAvatar={setAvatar}/>
+            : console.log()
+        }
     </DataContainer>
   )
 }

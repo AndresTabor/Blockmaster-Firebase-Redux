@@ -48,11 +48,14 @@ export const UserDataContainer = styled.div`
     }
 `
 export const BtnAvatar = styled.button`
+    width: 70%;
     height: 100%;
+    border-radius: 50%;
+    padding: 0;
 `
 export const AvatarImage = styled.img`
-    width: 70%;
-    &:hover{cursor: pointer;}
+    width: 100%;
+    
 `
 
 export const ActionsBtn = styled.div`
