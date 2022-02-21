@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const Overley = styled.div`
-    width:100vw;
+    width:121vw;
     height:100vh;
     position:fixed;
     top:0;
@@ -61,7 +61,9 @@ export const ModalButtons = styled.button`
     & svg{
         margin-right:10px;
     }
-
+    & a{
+        color: black;
+    }
 `
 export const ModalBtnContainer = styled.div`
     display: flex;

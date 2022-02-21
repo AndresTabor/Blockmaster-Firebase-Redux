@@ -9,19 +9,21 @@ import UpdateModal from './UpdateModal'
 import { BiShowAlt } from 'react-icons/bi'
 
 
-const CardMoviesProfile = ( {movie} ) => {
+const CardMoviesProfile = ( {movie, showDetails} ) => {
   const [show, setShow] = useState(false);
-  const { userKey } = useContext(AuthContext)
-  const dispatch = useDispatch()
+  const { userKey } = useContext(AuthContext);
+  const dispatch = useDispatch();
   
   const handleShow = () => setShow(true);
+
+  
   
   return (
     <CardContainer className='rounded-2' id={movie.id} key={movie.id}>
         <ImgCard src={movie.poster_path} alt={movie.tittle}/>
         <CalificacionContainer>
-            <AiFillStar/>            
-            <span>{movie.vote_average}</span>
+          <AiFillStar/>            
+          <span>{movie.vote_average}</span>
         </CalificacionContainer>
         <ActionsBtnCard>
           <BtnCard onClick={() => dispatch( deleteMovieAsync( movie.id, userKey)) }>
@@ -30,8 +32,8 @@ const CardMoviesProfile = ( {movie} ) => {
           <BtnCard variant="primary" onClick={handleShow}>
             <MdSystemUpdateAlt/>
           </BtnCard>
-          <BtnCard variant="primary">
-            <BiShowAlt/>
+          <BtnCard variant="primary" onClick={() => showDetails( movie.id )}>            
+            <BiShowAlt/>            
           </BtnCard>
         </ActionsBtnCard>
         <UpdateModal showModal={show} movieData={movie} closeModal={setShow}/>

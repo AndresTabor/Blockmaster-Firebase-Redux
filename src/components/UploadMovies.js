@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BiCameraMovie } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
 import { listMoviesAsync } from '../actions/moviesActios/actionMovies';
@@ -6,10 +6,11 @@ import { AuthContext } from '../context/authContext';
 import { ListMoviesContainer } from '../styles/homeStyles/MoviesSectionStyle'
 import { MessegeContainer } from '../styles/profileStyles/UserDataStyle';
 import CardMoviesProfile from './CardMoviesProfile';
+import DescriptionModal from './DescriptionModal';
 
 
 const UploadMovies = ( {categoryList} ) => { 
-
+  const [showItem, setShowItem] = useState({})
   const { userKey } = useContext( AuthContext )
   const dispatch = useDispatch();
 
@@ -25,6 +26,15 @@ const UploadMovies = ( {categoryList} ) => {
   const { movies } = useSelector(store => store.movies)
   const { favorites } = useSelector(store => store.movies)
 
+  const showDetails = ( id ) => {
+    document.getElementById( 'details').style.display="block";
+
+    if ( categoryList === 'Mis películas') {
+      setShowItem(movies.find( movie => movie.id === id ) );
+    }
+
+  }
+
   return (
     <ListMoviesContainer>
       {  
@@ -38,6 +48,7 @@ const UploadMovies = ( {categoryList} ) => {
             <CardMoviesProfile
             key={movie.id}
             movie={movie}
+            showDetails={showDetails}
             />              
           ))
         :categoryList === 'Mis películas' & movies.length === 0?  
@@ -50,9 +61,11 @@ const UploadMovies = ( {categoryList} ) => {
           <CardMoviesProfile
           key={movie.id}
           movie={movie}
+          showDetails={showDetails}
           />              
         )):console.log('algo salio mal')        
       }
+      <DescriptionModal showItem={showItem}/>
   </ListMoviesContainer>
   )
 }
