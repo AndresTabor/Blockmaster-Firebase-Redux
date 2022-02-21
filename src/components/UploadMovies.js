@@ -18,8 +18,7 @@ const UploadMovies = ( {categoryList} ) => {
       dispatch(listMoviesAsync( userKey, 'favoritas' ))
     }else if (categoryList === 'Mis películas'){
       dispatch(listMoviesAsync( userKey, 'upload_movies' ))
-    }
-    
+    }    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryList])
     

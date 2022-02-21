@@ -3,10 +3,18 @@ import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updatePr
 import { google } from "../../firebaseConfig/firebaseConfig";
 import { doc, setDoc, collection, query, where, getDocs } from "@firebase/firestore";
 import { db } from "../../firebaseConfig/firebaseConfig";
-
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const auth = getAuth();
-
+const MySwal = withReactContent(Swal);
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 900,
+    timerProgressBar: true,
+})
 
 export const logoutAsync = () => {
     return( dispatch ) => {
@@ -29,6 +37,7 @@ export const logoutSincrono = () => {
  }
 
 export const loginSincrono = ( uid, dsplayName, photo ) => {
+    console.log(uid + dsplayName + photo);
     return{
 
         type: typesUser.login,
@@ -46,7 +55,11 @@ export const loginGoogleAsync = () => {
     return async( dispatch ) => {
         
         signInWithPopup( auth, google )
-        .then( async ( {user} ) => {
+        .then( async ( {user} ) => {            
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
             dispatch( loginSincrono( user.uid, user.displayName, user.photoURL ) );
             const q = query(collection(db, "moviesDB"), where("email", "==", user.email));     
             const validacion = await getDocs(q)
@@ -73,23 +86,46 @@ export const loginGoogleAsync = () => {
 }
 
 export const loginWithEmailPass = ( email, password ) => {
+    
     return( dispatch ) => {
         
         signInWithEmailAndPassword( auth, email, password )
         .then( ( {user} ) => {
-            alert( 'welcome' )
-            dispatch(loginSincrono( user.uid, user.displayName));
-            window.location = '/';
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
+            dispatch( loginSincrono( user.uid, user.displayName, user.photoURL ) );            
         })
         .catch( error => {
             console.log( error.code );
-            if (error.code === "user-not-found") {
-                alert("Correo invalido")
-            }else if( error.code === "auth/wrong-password"){
-                alert("Contraseña incorrecta")
-            }else if (error.code === "user-not-found"){
-                alert("usuario no enontrdo")
+            switch ( error.code ) {                
+                case 'auth/user-not-found':
+                    MySwal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email no registrado',
+                        customClass:{
+                            confirmButton: 'btn-alert',
+                            actions: 'actions-alerts',
+                        }                                                                       
+                    })
+                    break;    
+                case 'auth/wrong-password':
+                    MySwal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Contraseña incorrecta',
+                        customClass:{
+                            confirmButton: 'btn-alert',
+                            actions: 'actions-alerts',
+                        }                                                 
+                    })
+                    break; 
+                default:
+                    break;
             }
         })
     }
 }
+//user-not-found auth/wrong-password

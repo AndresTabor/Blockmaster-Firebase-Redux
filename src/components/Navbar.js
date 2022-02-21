@@ -25,7 +25,7 @@ const Navbar = memo(( {setCategory, setSearchMovie} ) => {
     
 
     useEffect(() => {
-        console.log('montaje nav');
+        //console.log('montaje nav');
     }, [photo_url])
     
     const showFormLogin = () => {

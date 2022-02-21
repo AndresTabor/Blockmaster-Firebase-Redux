@@ -20,8 +20,7 @@ export const OverlayForm = styled.div`
         margin: 150px auto;
         background: rgb(49,59,93);
         background: linear-gradient(185deg, rgba(49,59,93,1) 0%, rgba(24,35,71,1) 48%, rgba(8,15,40,1) 100%);
-        color: #ffff;
-        
+        color: #ffff;   
     }
 `
 export const BtnClose = styled.button`

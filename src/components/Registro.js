@@ -48,7 +48,7 @@ const Registro = () => {
                     <Form.Control type="text" 
                     placeholder="Nombres y apellidos" 
                     name='name'
-                    required                    
+                    required                 
                     onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -65,6 +65,7 @@ const Registro = () => {
                     placeholder="************" 
                     name='password'
                     required                    
+                    minLength='10'                   
                     onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group controlId="formGroupBtn">

@@ -22,22 +22,12 @@ const AppRouter = () => {
           setIsLoggin(true)
         }
         else{
-          console.log('no logueado')
+          //console.log('no logueado')
           setIsLoggin(false)
         }
-        //setChecking(false)
     })
-
- 
   }, [setIsLoggin])
 
-
-  // if(checking){
-  //   return(
-  //       <h1>Espere...</h1>
-  //   )
-  // }
-  
   return <div>
       <AuthContext.Provider value={{ isLoggin, userKey, userData }}>
         <BrowserRouter>

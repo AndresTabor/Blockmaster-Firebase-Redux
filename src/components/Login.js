@@ -17,7 +17,7 @@ const Login = () => {
     })
 
     useEffect(() => {
-      console.log('montaje login');
+     // console.log('montaje login');
     }, [])
     
 
@@ -56,14 +56,16 @@ const Login = () => {
                     <Form.Label>Correo electrónico</Form.Label>
                     <Form.Control type="email" 
                     placeholder="Ejemplo@ejemplo.com"
-                    name='email' 
+                    name='email'
+                    required 
                     onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                     <Form.Label>Contraseña</Form.Label>
                     <Form.Control type="password" 
                     placeholder="************"
-                    name='password' 
+                    name='password'
+                    required 
                     onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">

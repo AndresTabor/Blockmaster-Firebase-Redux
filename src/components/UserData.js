@@ -29,8 +29,7 @@ const UserData = () => {
         name: userData.displayName,
         email: userData.email,
         password: '',
-        photo_url:avatar
-        
+        photo_url:avatar        
     })
 
     const { name, email, password } = registro

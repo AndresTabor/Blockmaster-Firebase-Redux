@@ -2,6 +2,7 @@ import { getAuth, updateProfile, deleteUser } from "firebase/auth";
 import { doc, updateDoc, deleteDoc } from "@firebase/firestore";
 //import { typesUser } from "../../types/types"
 import { db } from "../../firebaseConfig/firebaseConfig";
+import { logoutSincrono } from "../authActions/actionLogin";
 
 
 const auth = getAuth();
@@ -26,11 +27,11 @@ export const updateUserAsync = ( newData, keyUser ) => {
 
 
 export const deleUserAsync = () => {
-    return () => {
-        const user = auth.currentUser;
-        
+    return ( dispatch ) => {
+        const user = auth.currentUser;        
         deleteUser(user)
         .then( () => {
+            dispatch( logoutSincrono );
             deleteDoc(doc(db, "moviesDB", user.uid))
             .then(resp => console.log( resp ))            
         })

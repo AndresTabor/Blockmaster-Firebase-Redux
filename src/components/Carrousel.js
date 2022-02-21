@@ -8,7 +8,7 @@ const  Carrousel = memo(() => {
 
 
     useEffect(() => {
-        console.log("Montaje Carrousel");
+        //console.log("Montaje Carrousel");
         fetch( AllMoviesUrl )
             .then(response => response.json())
             .then(response => setDataCarrusel(response.results.sort(() => Math.random() > 0.5 ? 1 : -1).slice(0, 5)))
