@@ -37,7 +37,6 @@ export const logoutSincrono = () => {
  }
 
 export const loginSincrono = ( uid, dsplayName, photo ) => {
-    console.log(uid + dsplayName + photo);
     return{
 
         type: typesUser.login,

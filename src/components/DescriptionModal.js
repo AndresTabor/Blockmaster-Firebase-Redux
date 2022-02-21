@@ -14,7 +14,7 @@ const DescriptionModal = ( {showItem} ) => {
     useEffect(() => {
         console.log( showItem );
         setDescription(showItem)
-        console.log(showItem.video_key);
+        console.log(showItem.original_title);
     }, [showItem])  
 
     const urlPoster = 'https://image.tmdb.org/t/p/w500/'+description?.poster_path;
@@ -28,14 +28,14 @@ const DescriptionModal = ( {showItem} ) => {
                     </ModalBtnCerrar>
                     <ImagenModal>
                         {
-                            showItem?.video_key !== undefined?
+                            showItem?.original_title !== undefined?
                             <img src={urlPoster} alt='Movie Poster'/>:
                             <img src={description?.poster_path} alt='Movie Poster'/>
                         }
                     </ImagenModal>
                     <DataMovie className='text-light'>
                         {
-                            showItem?.video_key !== undefined?
+                            showItem?.original_title !== undefined?
                             <h1>{description?.original_title}</h1>:
                             <h1>{description?.title}</h1>
                         }
@@ -50,7 +50,7 @@ const DescriptionModal = ( {showItem} ) => {
                                 
                                 <ModalButtons className='bg-warning'>
                                     {
-                                        showItem?.video_key !== undefined?
+                                        showItem?.original_title !== undefined?
                                         <a href={`https://www.youtube.com/embed/${description.video_key}?autoplay=1&amp;origin=https%3A%2F%2Fwww.themoviedb.org&amp;hl=es&amp;modestbranding=1&amp;fs=1&amp;autohide=1`} target='_blank' rel="noreferrer">
                                             <BsFillPlayFill/>
                                             <span>VER TRÁILER</span>    
@@ -62,7 +62,7 @@ const DescriptionModal = ( {showItem} ) => {
                                     } 
                                 </ModalButtons>
                                 {
-                                   showItem?.video_key !== undefined? 
+                                   showItem?.original_title !== undefined? 
                                     <ModalButtons className='border border-warning border-2 text-warning' style={{backgroundColor: "black"}}>
                                         <BiPlus/>
                                         <span>VER DESPUÉS</span>    
