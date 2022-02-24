@@ -7,6 +7,7 @@ export const typesUser = {
 
 export const typesMovies = {
     add: 'añadir',
+    add_favorites: 'add_favorites',
     delete: 'delete',
     updat: 'update',
     list_movies: 'list_movies',

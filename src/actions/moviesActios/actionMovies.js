@@ -5,7 +5,6 @@ import { db } from "../../firebaseConfig/firebaseConfig";
 import { typesMovies } from "../../types/types";
 
 export const addMovie = ( movie ) => {
-
     return{
         type: typesMovies.add,
         payload:{
@@ -19,7 +18,7 @@ export const addMovie = ( movie ) => {
 
 export const addMovieAsync = ( newMovie, keyUser ) => {
     const userDataRef = doc(db, "moviesDB", `${keyUser}`);
-    //moviesDB
+   
     return( dispatch ) => {
         updateDoc(userDataRef, { 
             upload_movies: arrayUnion( newMovie ), merge: true
