@@ -32,7 +32,7 @@ const AppRouter = () => {
     })
   }, [setIsLoggin])
 
-  return <div>
+  return <>
       <AuthContext.Provider value={{ isLoggin, userKey, userData }}>
         <BrowserRouter>
         {
@@ -45,7 +45,7 @@ const AppRouter = () => {
         </BrowserRouter>
 
       </AuthContext.Provider>
-  </div>;
+  </>;
 };
 
 export default AppRouter;

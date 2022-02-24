@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pruebas <AppRouter /> validar render de rutas privadas 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <AppRouter>
+    <BrowserRouter>
+      <PrivateRoutes />
+    </BrowserRouter>
+  </AppRouter>
+</ContextProvider>
+`;
+
+exports[`pruebas <AppRouter /> validar render de rutas publicas 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <AppRouter>
+    <BrowserRouter>
+      <PublicRoutes />
+    </BrowserRouter>
+  </AppRouter>
+</ContextProvider>
+`;
