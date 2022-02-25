@@ -18,8 +18,8 @@ export const useGetLocation = () => {
     const resp = await fetch( url);
     const {results} = await resp.json();
     //console.log(results);
-    console.log(results[8].formatted_address)
-    setLocation(results[8].formatted_address)
+    console.log(results[4].formatted_address)
+    setLocation(results[4].formatted_address)
     }
 
     return [ location, getCoordenadas ]
